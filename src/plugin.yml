@@ -1,0 +1,25 @@
+name: Locker
+main: com.vildaberper.Locker.Locker
+version: 1.5.2
+website: http://www.tfbs.tk/
+author: vildaberper
+database: true
+description: >
+             Customizable lock plugin for bukkit.
+commands:
+ lock:
+    description: Lock.
+    usage: |
+           /<command> [allowed players/p:password]
+ unlock:
+    description: Unlock.
+    usage: |
+           /<command> [password]
+ lockinfo:
+    description: Info.
+    usage: |
+           /<command>
+ locker:
+    description: Locker commands.
+    usage: |
+           /<command> <clear/validate/info> [player]
