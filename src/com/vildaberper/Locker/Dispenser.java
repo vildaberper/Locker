@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 public class Dispenser{
 	public static boolean touchesDispenser(Block block){
 		for(int i1 = 0; i1 < BlockFace.values().length; i1++){
-			if(block.getFace(BlockFace.values()[i1]).getTypeId() == 23){
+			if(block.getRelative(BlockFace.values()[i1]).getTypeId() == 23){
 				return true;
 			}
 			for(int i2 = 0; i2 < BlockFace.values().length; i2++){
-				if(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2]).getTypeId() == 23){
+				if(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2]).getTypeId() == 23){
 					return true;
 				}
 			}
@@ -24,17 +24,17 @@ public class Dispenser{
 			return true;
 		}
 		for(int i1 = 0; i1 < BlockFace.values().length; i1++){
-			if(block.getFace(BlockFace.values()[i1]).getTypeId() == 23){
-				if(LockerDB.getLock(block.getFace(BlockFace.values()[i1])) != null){
-					if(!LockerDB.getLock(block.getFace(BlockFace.values()[i1])).getOwner().equals(player.getName())){
+			if(block.getRelative(BlockFace.values()[i1]).getTypeId() == 23){
+				if(LockerDB.getLock(block.getRelative(BlockFace.values()[i1])) != null){
+					if(!LockerDB.getLock(block.getRelative(BlockFace.values()[i1])).getOwner().equals(player.getName())){
 						return false;
 					}
 				}
 			}
 			for(int i2 = 0; i2 < BlockFace.values().length; i2++){
-				if(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2]).getTypeId() == 23){
-					if(LockerDB.getLock(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2])) != null){
-						if(!LockerDB.getLock(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2])).getOwner().equals(player.getName())){
+				if(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2]).getTypeId() == 23){
+					if(LockerDB.getLock(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2])) != null){
+						if(!LockerDB.getLock(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2])).getOwner().equals(player.getName())){
 							return false;
 						}
 					}

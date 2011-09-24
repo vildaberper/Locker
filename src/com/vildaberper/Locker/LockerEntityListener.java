@@ -19,12 +19,12 @@ public class LockerEntityListener extends EntityListener{
 					LockerDB.setLock(block, null);
 				}
 			}
-			if(LockerDB.getLock(block.getFace(BlockFace.UP)) != null && block.getFace(BlockFace.UP).getTypeId() == 64 || block.getFace(BlockFace.UP).getTypeId() == 71){
+			if(LockerDB.getLock(block.getRelative(BlockFace.UP)) != null && block.getRelative(BlockFace.UP).getTypeId() == 64 || block.getRelative(BlockFace.UP).getTypeId() == 71){
 				if(Config.block_explosions){
 					event.setCancelled(true);
 					return;
 				}else{
-					Door.setDoor(block.getFace(BlockFace.UP).getTypeId(), null, null, null, block.getFace(BlockFace.UP).getLocation());
+					Door.setDoor(block.getRelative(BlockFace.UP).getTypeId(), null, null, null, block.getRelative(BlockFace.UP).getLocation());
 				}
 			}
 		}

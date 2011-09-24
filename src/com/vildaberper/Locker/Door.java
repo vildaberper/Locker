@@ -69,11 +69,11 @@ public class Door{
 
 	public static boolean touchesDoor(int id, Block block){
 		for(int i1 = 0; i1 < BlockFace.values().length; i1++){
-			if(block.getFace(BlockFace.values()[i1]).getTypeId() == id){
+			if(block.getRelative(BlockFace.values()[i1]).getTypeId() == id){
 				return true;
 			}
 			for(int i2 = 0; i2 < BlockFace.values().length; i2++){
-				if(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2]).getTypeId() == id){
+				if(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2]).getTypeId() == id){
 					return true;
 				}
 			}
@@ -86,17 +86,17 @@ public class Door{
 			return true;
 		}
 		for(int i1 = 0; i1 < BlockFace.values().length; i1++){
-			if(block.getFace(BlockFace.values()[i1]).getTypeId() == id){
-				if(LockerDB.getLock(block.getFace(BlockFace.values()[i1])) != null){
-					if(!LockerDB.getLock(block.getFace(BlockFace.values()[i1])).getOwner().equals(player.getName())){
+			if(block.getRelative(BlockFace.values()[i1]).getTypeId() == id){
+				if(LockerDB.getLock(block.getRelative(BlockFace.values()[i1])) != null){
+					if(!LockerDB.getLock(block.getRelative(BlockFace.values()[i1])).getOwner().equals(player.getName())){
 						return false;
 					}
 				}
 			}
 			for(int i2 = 0; i2 < BlockFace.values().length; i2++){
-				if(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2]).getTypeId() == id){
-					if(LockerDB.getLock(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2])) != null){
-						if(!LockerDB.getLock(block.getFace(BlockFace.values()[i1]).getFace(BlockFace.values()[i2])).getOwner().equals(player.getName())){
+				if(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2]).getTypeId() == id){
+					if(LockerDB.getLock(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2])) != null){
+						if(!LockerDB.getLock(block.getRelative(BlockFace.values()[i1]).getRelative(BlockFace.values()[i2])).getOwner().equals(player.getName())){
 							return false;
 						}
 					}

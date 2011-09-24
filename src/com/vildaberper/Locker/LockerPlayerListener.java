@@ -43,7 +43,7 @@ public class LockerPlayerListener extends PlayerListener{
 						return;
 					}
 					if(LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).startsWith("g:") || LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).startsWith("G:") && !Config.op_permissions){
-						if(Perm.PermissionsHandler.inGroup(event.getPlayer().getWorld().getName(), event.getPlayer().getName(), LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).substring(2))){
+						if(Perm.getGroupsString(event.getPlayer().getName()) != null && Perm.getGroupsString(event.getPlayer().getName()).contains((LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).substring(2)))){
 							event.setCancelled(false);
 							return;
 						}
@@ -372,7 +372,7 @@ public class LockerPlayerListener extends PlayerListener{
 							return;
 						}
 						if(LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).startsWith("g:") || LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).startsWith("G:") && !Config.op_permissions){
-							if(Perm.PermissionsHandler.inGroup(event.getPlayer().getWorld().getName(), event.getPlayer().getName(), LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).substring(2))){
+							if(Perm.getGroupsString(event.getPlayer().getName()) != null && Perm.getGroupsString(event.getPlayer().getName()).contains(LockerDB.getLock(event.getClickedBlock()).getAllowedList().get(i).substring(2))){
 								event.setCancelled(false);
 								return;
 							}

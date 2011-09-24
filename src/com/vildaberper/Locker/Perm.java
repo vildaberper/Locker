@@ -5,84 +5,54 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import com.nijiko.permissions.PermissionHandler;
+import com.platymuus.bukkit.permissions.Group;
+import com.platymuus.bukkit.permissions.PermissionsPlugin;
 
-public class Perm {
-	public static PermissionHandler PermissionsHandler = null;
-	public static List<String> Permissions = new LinkedList<String>();
-
-	public static void clearPermissions(){
-		Permissions.clear();
+public class Perm{
+	public static List<Group> getGroups(String player){
+		if(Config.plugin.getServer().getPluginManager().getPlugin("PermissionsBukkit") != null && ((PermissionsPlugin) Config.plugin.getServer().getPluginManager().getPlugin("PermissionsBukkit")).getPlayerInfo(player) != null){
+			return ((PermissionsPlugin) Config.plugin.getServer().getPluginManager().getPlugin("PermissionsBukkit")).getPlayerInfo(player).getGroups();
+		}
+		return null;
 	}
 
-	public static void resetPermissions(){
-		Permissions.clear();
-		Permissions.add("locker.lockinfo");
-		Permissions.add("locker.lock.self");
-		Permissions.add("locker.unlock.self");
-		Permissions.add("locker.unlock.password");
-		Permissions.add("locker.view.self");
-	}
+	public static List<String> getGroupsString(String player){
+		List<Group> groups = getGroups(player);
 
-	public static List<String> getPermissions(){
-		return Permissions;
-	}
+		if(groups != null){
+			List<String> groupsstring = new LinkedList<String>();
 
-	public static void setPermissions(List<String> permissions){
-		Permissions = permissions;
-	}
-
-	public static String getPermission(int index){
-		return Permissions.get(index);
-	}
-
-	public static void setPermission(int index, String permission){
-		Permissions.add(index, permission);
-	}
-
-	public static void setPermission(String permission){
-		Permissions.add(permission);
-	}
-
-	public static int getSize(){
-		return Permissions.size();
+			for(Group group : groups){
+				groupsstring.add(group.getName());
+			}
+			return groupsstring;
+		}
+		return null;
 	}
 
 	public static boolean hasPermission(Player player, String node){
-		if(Config.op_permissions){
-			if(player.isOp()){
-				return true;
-			}
-			for(int i = 0; i < getSize(); i++){
-				if(getPermission(i).equalsIgnoreCase(node)){
-					return true;
-				}
-			}
+		boolean permission = hasPermissionSilent(player, node);
+
+		if(!permission){
 			player.sendMessage(Misc.replaceColor(Config.not_permission));
-			return false;
 		}
-		if(!PermissionsHandler.has(player, node)){
-			player.sendMessage(Misc.replaceColor(Config.not_permission));
-			return false;
-		}
-		return true;
+		return permission;
 	}
 
 	public static boolean hasPermissionSilent(Player player, String node){
-		if(Config.op_permissions){
-			if(player.isOp()){
-				return true;
-			}
-			for(int i = 0; i < getSize(); i++){
-				if(getPermission(i).equalsIgnoreCase(node)){
+		if(player.hasPermission(node)){
+			return true;
+		}
+		if(player.hasPermission("*")){
+			return true;
+		}
+		for(int y = 0; y < node.length(); y++){
+			if(node.charAt(y) == '.'){
+				if(player.hasPermission(node.substring(0, y) + ".*")){
 					return true;
 				}
 			}
-			return false;
 		}
-		if(!PermissionsHandler.has(player, node)){
-			return false;
-		}
-		return true;
+		return false;
 	}
 }

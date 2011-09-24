@@ -17,8 +17,6 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
 
-import com.nijikokun.bukkit.Permissions.Permissions;
-
 public final class Locker extends JavaPlugin{
 	private final LockerBlockListener blockListener = new LockerBlockListener();
 	private final LockerEntityListener entityListener = new LockerEntityListener();
@@ -68,11 +66,8 @@ public final class Locker extends JavaPlugin{
 	@Override
 	public void onEnable(){
 		Config.plugin = this;
-		Perm.PermissionsHandler = null;
-		Perm.Permissions.clear();
 		setupDatabase();
 		loadConfig();
-		setupPermissions();
 		/*
 		 * Convert old DB
 		 */
@@ -242,16 +237,6 @@ public final class Locker extends JavaPlugin{
 			return true;
 		}
 		return false;
-	}
-
-	public void setupPermissions(){
-		if(Perm.PermissionsHandler == null){
-			if(this.getServer().getPluginManager().getPlugin("Permissions") != null){
-				Perm.PermissionsHandler = ((Permissions)this.getServer().getPluginManager().getPlugin("Permissions")).getHandler();
-			}else{
-				Config.op_permissions = true;
-			}
-		}
 	}
 
 	private void setupDatabase(){
@@ -448,18 +433,12 @@ public final class Locker extends JavaPlugin{
 		config.load();
 		config.setProperty("password", Config.password);
 		config.save();
-		config.load();
-		config.setProperty("Permissions", Perm.getPermissions());
-		config.save();
 	}
 
 	public void loadConfig(){
 		Configuration config = new Configuration(new File(this.getDataFolder(), "Locker.yml"));
 
-		Perm.PermissionsHandler = null;
-		Perm.resetPermissions();
 		config.load();
-		Config.op_permissions = config.getBoolean("op_permissions", Config.op_permissions);
 		Config.block_explosions = config.getBoolean("block_explosions", Config.block_explosions);
 		Config.block_redstone = config.getBoolean("block_redstone", Config.block_redstone);
 		Config.max_blocks = config.getInt("max_blocks", Config.max_blocks);
@@ -495,7 +474,5 @@ public final class Locker extends JavaPlugin{
 		Config.allowed = config.getString("allowed", Config.allowed);
 		Config.password = config.getString("password", Config.password);
 		Config.limit = config.getString("limit", Config.limit);
-		Perm.setPermissions(config.getStringList("Permissions", Perm.getPermissions()));
-		setupPermissions();
 	}
 }

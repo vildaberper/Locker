@@ -39,8 +39,8 @@ public class LockerBlockListener extends BlockListener{
 				return;
 			}
 		}
-		if(event.getBlock().getFace(BlockFace.DOWN).getTypeId() == 54 && LockerDB.getLock(event.getBlock().getFace(BlockFace.DOWN)) != null){
-			if(!event.getPlayer().getName().equals(LockerDB.getLock(event.getBlock().getFace(BlockFace.DOWN)).getOwner()) && !Perm.hasPermissionSilent(event.getPlayer(), "locker.unlock.other")){
+		if(event.getBlock().getRelative(BlockFace.DOWN).getTypeId() == 54 && LockerDB.getLock(event.getBlock().getRelative(BlockFace.DOWN)) != null){
+			if(!event.getPlayer().getName().equals(LockerDB.getLock(event.getBlock().getRelative(BlockFace.DOWN)).getOwner()) && !Perm.hasPermissionSilent(event.getPlayer(), "locker.unlock.other")){
 				event.getPlayer().sendMessage(Misc.replaceBlock(Config.not_place, event.getBlock()));
 				event.setCancelled(true);
 				return;
@@ -122,27 +122,27 @@ public class LockerBlockListener extends BlockListener{
 			}
 			return;
 		}
-		if(LockerDB.getLock(event.getBlock().getFace(BlockFace.UP)) != null){
+		if(LockerDB.getLock(event.getBlock().getRelative(BlockFace.UP)) != null){
 			event.setCancelled(true);
-			if(event.getPlayer().getName().equals(LockerDB.getLock(event.getBlock().getFace(BlockFace.UP)).getOwner())){
+			if(event.getPlayer().getName().equals(LockerDB.getLock(event.getBlock().getRelative(BlockFace.UP)).getOwner())){
 				if(!Perm.hasPermission(event.getPlayer(), "locker.unlock.self")){
 					return;
 				}
 			}
-			if(!event.getPlayer().getName().equals(LockerDB.getLock(event.getBlock().getFace(BlockFace.UP)).getOwner())){
+			if(!event.getPlayer().getName().equals(LockerDB.getLock(event.getBlock().getRelative(BlockFace.UP)).getOwner())){
 				if(!Perm.hasPermissionSilent(event.getPlayer(), "locker.unlock.other")){
 					event.getPlayer().sendMessage(Misc.replaceBlock(Config.not_break, event.getBlock()));
 					return;
 				}
 			}
 			event.setCancelled(false);
-			if(event.getBlock().getFace(BlockFace.UP).getTypeId() == 64){
-				Door.setDoor(null, null, null, event.getBlock().getFace(BlockFace.UP));
-				event.getPlayer().sendMessage(Misc.replaceBlock(Config.unlock_one, event.getBlock().getFace(BlockFace.UP)));
+			if(event.getBlock().getRelative(BlockFace.UP).getTypeId() == 64){
+				Door.setDoor(null, null, null, event.getBlock().getRelative(BlockFace.UP));
+				event.getPlayer().sendMessage(Misc.replaceBlock(Config.unlock_one, event.getBlock().getRelative(BlockFace.UP)));
 				return;
-			}else if(event.getBlock().getFace(BlockFace.UP).getTypeId() == 71){
-				Door.setDoor(null, null, null, event.getBlock().getFace(BlockFace.UP));
-				event.getPlayer().sendMessage(Misc.replaceBlock(Config.unlock_one, event.getBlock().getFace(BlockFace.UP)));
+			}else if(event.getBlock().getRelative(BlockFace.UP).getTypeId() == 71){
+				Door.setDoor(null, null, null, event.getBlock().getRelative(BlockFace.UP));
+				event.getPlayer().sendMessage(Misc.replaceBlock(Config.unlock_one, event.getBlock().getRelative(BlockFace.UP)));
 				return;
 			}
 		}

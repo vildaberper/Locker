@@ -1,6 +1,6 @@
 name: Locker
 main: com.vildaberper.Locker.Locker
-version: 1.5.2
+version: 1.5.3
 website: http://www.tfbs.tk/
 author: vildaberper
 database: true
